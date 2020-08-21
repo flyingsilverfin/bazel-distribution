@@ -92,6 +92,9 @@ maven_repositories = {
     "release": "{release}"
 }
 maven_url = maven_repositories[repo_type]
+
+print("SELECTED maven_url: "+ str(maven_url))
+
 jar_path = "$JAR_PATH"
 pom_file_path = "$POM_PATH"
 srcjar_path = "$SRCJAR_PATH"
@@ -177,3 +180,6 @@ with tempfile.NamedTemporaryFile(mode='wt', delete=True) as srcjar_sha1:
     upload(maven_url, username, password, srcjar_sha1.name, filename_base + '-sources.jar.sha1')
     # TODO(vmax): use checksum of real Javadoc instead of srcjar
     upload(maven_url, username, password, srcjar_sha1.name, filename_base + '-javadoc.jar.sha1')
+
+
+print("DONE")

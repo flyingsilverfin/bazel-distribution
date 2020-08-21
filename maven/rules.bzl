@@ -462,6 +462,8 @@ assemble_maven = rule(
 def _deploy_maven_impl(ctx):
     deploy_maven_script = ctx.actions.declare_file("deploy.py")
 
+    print("PATH to deploy.py" + str(deploy_maven_script.path))
+
     lib_jar_link = "lib.jar"
     src_jar_link = "lib.srcjar"
     pom_xml_link = ctx.attr.target[MavenDeploymentInfo].pom.basename
