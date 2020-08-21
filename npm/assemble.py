@@ -42,6 +42,10 @@ new_package_root = tempfile.mktemp()
 shutil.copytree(args.package, new_package_root,
                 ignore=lambda _, names: list(
                     filter(lambda x: 'external' in x, names)))
+
+print("COPIED CLIENT-NODE FILES TO:")
+print(os.listdir(new_package_root))
+
 package_json_fn = os.path.join(new_package_root, 'package.json')
 
 with open(package_json_fn) as f:
