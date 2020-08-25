@@ -38,8 +38,7 @@ def _assemble_npm_impl(ctx):
         version_file = ctx.file.version_file
 
     args = ctx.actions.args()
-    print(ctx.files.target[0].path)
-    args.add('--package', ctx.files.target[0].path)
+    args.add('--package', ctx.attr.target.label.package)
     args.add('--output', ctx.outputs.npm_package.path)
     args.add('--version_file', version_file.path)
 
