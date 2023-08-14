@@ -30,6 +30,9 @@ import os
 
 WINDOWS = "windows"
 
+print("Listing in 'bazel-out/darwin_arm64-fastbuild/bin/external/maven/v1/https/repo1.maven.org/maven2/io/netty/netty-resolver-dns-classes-macos/4.1.96.Final/'):")
+print(os.listdir("bazel-out/darwin_arm64-fastbuild/bin/external/maven/v1/https/repo1.maven.org/maven2/io/netty/netty-resolver-dns-classes-macos/4.1.96.Final/"))
+
 
 def tarfile_remove_mtime(info):
     info.mtime = 0
