@@ -117,6 +117,8 @@ def _java_deps_impl(ctx):
     output_path_overrides = ctx.attr.java_deps_root_overrides
 
     mapping = ctx.attr.target[TransitiveJarToMavenCoordinatesMapping].mapping
+    print("Java deps mapping: ")
+    print(mapping)
 
     for file in ctx.attr.target.data_runfiles.files.to_list():
         if file.extension == "jar" and not _is_jdk_jar(file):
@@ -139,6 +141,9 @@ def _java_deps_impl(ctx):
                 full_output_paths[file.path] = ctx.attr.java_deps_root + output_path + ".jar"
 
     jars_mapping = ctx.actions.declare_file("{}_jars.mapping".format(ctx.attr.target.label.name))
+
+    print("Output paths in mapping: ")
+    print(full_output_paths)
 
     ctx.actions.write(
         output = jars_mapping,
