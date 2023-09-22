@@ -86,14 +86,14 @@ def assemble_apt(name,
     deb_data = None
     if installation_dir:
 #
-#        empty_dirs_name = "_{}-empty-dirs".format(package_name)
-#        pkg_mkdirs(
-#            name = empty_dirs_name,
-#            attributes = pkg_attributes(
-#                mode = "0777",
-#            ),
-#            dirs = empty_dirs
-#        )
+        empty_dirs_name = "_{}-empty-dirs".format(package_name)
+        pkg_mkdirs(
+            name = empty_dirs_name,
+            attributes = pkg_attributes(
+                mode = "0777",
+            ),
+            dirs = empty_dirs
+        )
 #
 #        pkg_tar(
 #            name = tar_name,
@@ -109,7 +109,8 @@ def assemble_apt(name,
             extension = "tar.gz",
             deps = archives,
             package_dir = installation_dir,
-            empty_dirs = empty_dirs,
+            srcs = [empty_dirs_name],
+#            empty_dirs = empty_dirs,
             files = files,
             mode = "0755",
             symlinks = symlinks,
