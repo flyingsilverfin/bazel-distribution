@@ -98,7 +98,8 @@ def assemble_apt(name,
         pkg_tar(
             name = tar_name,
             extension = "tar.gz",
-            srcs = archives + files + empty_dirs_name,
+            srcs = archives + [empty_dirs_name],
+            files = files,
             modes = permissions,
             symlinks = symlinks
         )
