@@ -18,6 +18,7 @@
 #
 
 load("@rules_pkg//:pkg.bzl", "pkg_tar", "pkg_deb")
+load("@rules_pkg//pkg:mappings.bzl", "pkg_attributes", "pkg_filegroup", "pkg_files", "pkg_mkdirs")
 
 def _assemble_apt_version_file_impl(ctx):
     version = ctx.var.get('version', '0.0.0')
@@ -84,17 +85,35 @@ def assemble_apt(name,
     tar_name = "_{}-deb-tar".format(package_name)
     deb_data = None
     if installation_dir:
+
+        empty_dirs_name = "_{}-empty-dirs".format(package_name)
+        pkg_mkdirs(
+            name = empty_dirs_name,
+            attributes = pkg_attributes(
+                mode = "0777",
+            ),
+            dirs = empty_dirs
+        )
+
         pkg_tar(
             name = tar_name,
             extension = "tar.gz",
-            deps = archives,
-            package_dir = installation_dir,
-            empty_dirs = empty_dirs,
-            files = files,
-            mode = "0755",
-            symlinks = symlinks,
+            srcs = archives + files + empty_dirs_name,
             modes = permissions,
+            symlinks = symlinks
         )
+
+#        pkg_tar(
+#            name = tar_name,
+#            extension = "tar.gz",
+##            deps = archives,
+#            package_dir = installation_dir,
+##            empty_dirs = empty_dirs,
+##            files = files,
+##            mode = "0755",
+#            symlinks = symlinks,
+#            modes = permissions,
+#        )
         deb_data = tar_name
     else:
         pkg_tar(name = tar_name + "__do_not_reference__empty")
