@@ -213,11 +213,11 @@ class CrateAssembler : Callable<Unit> {
                             tarOutputStream.closeArchiveEntry()
                         }
 
-                        tarOutputStream.putArchiveEntry(TarArchiveEntry(
-                                versionFile ,
-                                "$prefix/VERSION"
-                        ))
-                        IOUtils.copy(versionFile, tarOutputStream)
+                        val versionEntry = TarArchiveEntry("$prefix/VERSION")
+                        val versionText = versionFile.readText().trim().toByteArray()
+                        versionEntry.size = versionText.size.toLong()
+                        tarOutputStream.putArchiveEntry(versionEntry)
+                        IOUtils.copy(ByteArrayInputStream(versionText), tarOutputStream)
                         tarOutputStream.closeArchiveEntry()
                     }
                 }
